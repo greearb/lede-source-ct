@@ -1,0 +1,16 @@
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option channel '36'
+	option hwmode '11a'
+	option path 'soc0/soc/1ffc000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/0000:02:05.0/0000:05:00.0'
+	option htmode 'VHT80'
+	option txpower '23'
+	option country 'US'
+
+config wifi-iface
+	option device 'radio0'
+	option network 'lan'
+	option mode 'ap'
+	option encryption 'none'
+	option ssid 'Lede-ventana'
+	option disassoc_low_ack 0

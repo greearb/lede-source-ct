@@ -1,0 +1,113 @@
+-*- sh -*-
+
+./scripts/feeds update
+./scripts/feeds install luci
+
+make menuconfig
+
+make V=s -j 8
+
+cp bin/targets/imx6/generic/lede-imx6-ventana-squashfs-nand_normal.ubi /var/lib/tftpboot/
+
+# New 10.2 firmware
+scp 192.168.1.234:/home/greearb/git/qca-10-2-4-70/firmware-5-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-5.bin
+# New 10.1 firmware
+scp 192.168.1.234:/home/greearb/git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
+
+# Automatic login as root:
+ssh root@192.168.1.1 "tee -a /etc/dropbear/authorized_keys" < ~/.ssh/id_rsa.pub
+
+# Install some scripts
+scp verinfo.sh root@192.168.1.1:/usr/bin/
+
+
+
+# Notes for CT lede project.
+
+# Install Fedora 22, 64-bit to act as build machine.
+
+# Install 'tftp' on your build machine.  These notes assume you
+# are using Fedora 22 Linux, but likely other systems will work
+# similarly.
+
+# Become root user
+
+su -
+
+# Install dependencies that may not already be on your system:
+
+yum install patch perl-ExtUtils-MakeMaker
+
+
+# Install and start tftp
+
+yum install tftp-server
+systemctl start tftp.socket
+systemctl enable tftp.socket
+chmod a+rwx /var/lib/tftpboot
+
+# Disable firewall so that tftp can work.  You may also choose to
+# configure firewall just to allow tftp from a specific set of hosts
+# if you are concerned about security on the TFTP server.
+systemctl stop firewalld.service
+systemctl disable firewalld.service
+
+# Do initial build.  This sometimes fails for me, but run it a second time
+# and it works fine
+cd lede
+cp CT/ventana.config .config
+make oldconfig
+make V=s -j 8
+
+# Wait a while...and hopefully you have 10GB+ of disk space available!
+
+# See this page if interested in more details on tftp install:
+# http://trac.gateworks.com/wiki/ventana/openwrt
+
+#  Configure the Gateworks serial dongle to work with your machine
+# (I use minicom, 115200 8 N 1, /dev/ttyUSB1, no flow control)
+#  Power on the Gateworks Ventana board with the serial dongle attached.
+#  Interrupt the boot process to drop into the boot loader
+#  If this is the initial power-up, the environment may be weird.  Init
+#  it to defaults:
+
+env default -f -a
+saveenv
+
+# Assume TFTP server is located at IP:  192.168.1.234, and 192.168.1.1 may be used by this
+# board.  Be sure you don't allow duplicate IPs on this network, and note any Gateworks board
+# that is powered up might default to 192.168.1.1
+
+setenv ipaddr 192.168.1.1
+setenv serverip 192.168.1.234
+
+# If you are doing a Belt system, use the command below
+setenv image_rootfs lede-imx6-ventana-squashfs-nand_normal.ubi
+
+# Save config
+saveenv
+
+# To actually flash the new image:
+
+run nand_update
+boot
+
+
+# You should then change the fixed IP address that is
+# used for management of the system.
+# The default IP (once booted) is 192.168.1.110 for AP, and 192.168.1.120 for Belt systems.
+
+# Connect to the system with a browser:  firefox http://192.168.1.110
+
+# Default user:  root
+#  password:  [blank]
+
+# For security, please set password to something secure.
+
+# Select 'Network' tab, then select 'Interfaces'
+# Click 'Edit' button for the 'LAN' interface
+# Change IP address information in the 'General Setup' tab as needed
+# *** DO NOT set a gateway on the LAN for Belt systems.  They will use the
+#     wlan0 station as uplink.  AP system should have gateway configured.  ***
+# Click "Save & Apply"
+# Reboot the unit and ensure the new IP address information works as expected.
