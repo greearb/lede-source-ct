@@ -9,20 +9,27 @@ make V=s -j 8
 
 cp bin/targets/imx6/generic/lede-imx6-ventana-squashfs-nand_normal.ubi /var/lib/tftpboot/
 
-# New 10.2 firmware
-scp 192.168.1.234:/home/greearb/git/qca-10-2-4-70/firmware-5-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-5.bin
-# New 10.1 firmware
-scp 192.168.1.234:/home/greearb/git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
+# For APU2, copy image to USB so we can dd it on the apu2
+cp bin/targets/x86/64/lede-x86-64-combined-squashfs.img /run/media/greearb/BBB1-652F/
 
-# Automatic login as root:
+# Automatic login as root (from desktop machine):
 ssh root@192.168.1.1 "tee -a /etc/dropbear/authorized_keys" < ~/.ssh/id_rsa.pub
 
 # Install some scripts
 scp verinfo.sh root@192.168.1.1:/usr/bin/
 
+# Run this on the LEDE systems to install CT firmware.
+# New 10.2 firmware
+scp 192.168.1.2:/home/greearb/git/qca-10-2-4-70/firmware-5-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-5.bin
+# New 10.1 firmware
+scp 192.168.1.2:/home/greearb/git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
 
 
-# Notes for CT lede project.
+# Edit /etc/config/wireless, /etc/config/network as appropriate
+
+
+
+# Notes for CT lede project, related to Ventana needs.
 
 # Install Fedora 22, 64-bit to act as build machine.
 
