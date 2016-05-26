@@ -16,13 +16,13 @@ cp bin/targets/x86/64/lede-x86-64-combined-squashfs.img /run/media/greearb/BBB1-
 ssh root@192.168.1.1 "tee -a /etc/dropbear/authorized_keys" < ~/.ssh/id_rsa.pub
 
 # Install some scripts
-scp verinfo.sh root@192.168.1.1:/usr/bin/
+scp CT/verinfo.sh root@192.168.1.1:/usr/bin/
 
 # Run this on the LEDE systems to install CT firmware.
 # New 10.2 firmware
-scp 192.168.1.2:/home/greearb/git/qca-10-2-4-70/firmware-5-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-5.bin
+scp 192.168.1.2:/home/greearb/git/qca-10-2-4-70/firmware-5-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-5.bin.ct
 # New 10.1 firmware
-scp 192.168.1.2:/home/greearb/git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
+scp 192.168.1.2:/home/greearb/git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin.ct
 
 
 # Edit /etc/config/wireless, /etc/config/network as appropriate

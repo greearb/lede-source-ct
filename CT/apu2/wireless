@@ -1,0 +1,33 @@
+config wifi-device  radio0
+	option type     mac80211
+	option channel  36
+	option hwmode	11a
+	option path	'pci0000:00/0000:00:02.5/0000:05:00.0'
+	option htmode	VHT80
+	# REMOVE THIS LINE TO ENABLE WIFI:
+	# option disabled 1
+
+config wifi-iface
+	option device   radio0
+	option network  lan
+	option mode     ap
+	option ssid     Lede-apu2-AC
+	option encryption none
+	option disassoc_low_ack '0'
+
+config wifi-device  radio1
+	option type     mac80211
+	option channel  11
+	option hwmode	11g
+	option path	'pci0000:00/0000:00:02.1/0000:01:00.0'
+	option htmode	HT40
+	# REMOVE THIS LINE TO ENABLE WIFI:
+	option disabled 1
+
+config wifi-iface
+	option device   radio1
+	option network  lan
+	option mode     ap
+	option ssid     Lede-apu2-n
+	option encryption none
+	option disassoc_low_ack '0'
