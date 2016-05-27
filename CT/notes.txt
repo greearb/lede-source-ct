@@ -17,6 +17,7 @@ ssh root@192.168.1.1 "tee -a /etc/dropbear/authorized_keys" < ~/.ssh/id_rsa.pub
 
 # Install some scripts
 scp CT/verinfo.sh root@192.168.1.1:/usr/bin/
+scp CT/apu2/network CT/apu2/wireless CT/apu2/system root@192.168.1.1:/etc/config/
 
 # Run this on the LEDE systems to install CT firmware.
 # New 10.2 firmware
