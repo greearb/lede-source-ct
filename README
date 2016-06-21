@@ -1,5 +1,17 @@
 This is the buildsystem for the OpenWrt Linux distribution.
 
+To build for apu2 (x86-64) with ath10k and ath9k with CT firmware
+and drivers you can use this shortcut:
+
+./buildme.sh -t x86_64
+
+See more about CT ath10k firmware here:
+
+http://www.candelatech.com/ath10k.php
+
+
+Normal build process is also available:
+
 Please use "make menuconfig" to choose your preferred
 configuration for the toolchain and firmware.
 
