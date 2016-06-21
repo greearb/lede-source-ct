@@ -3,6 +3,7 @@
 USAGE=$( cat <<EOF
 Usage:\n
 # -t:  Target\n
+# -d:  Save current .config as diffconfig for the specified target.\n
 # -l:  List available targets.\n
 # -f:  Skip feeds (useful on rebuild)\n
 # -j:  Compile jobs (default is 8)\n
@@ -19,10 +20,12 @@ TARGET=UNKNOWN
 LIST_TARGETS=0
 SKIP_FEEDS=0
 JOBS=8
+SET_DIFF=0
 
-while getopts "t:j:lfh" flag
+while getopts "t:j:dlfh" flag
   do
   case $flag in
+      d) SET_DIFF=1;;
       t) TARGET=$OPTARG;;
       l) LIST_TARGETS=1;;
       f) SKIP_FEEDS=1;;
@@ -45,6 +48,12 @@ if [ ! -d $BMT/$TARGET ]
 then
     echo "ERROR:  Unknown target, try -l option?"
     exit 1;
+fi
+
+if [ $SET_DIFF == 1 ]
+then
+    ./scripts/diffconfig.sh > $BMT/$TARGET/diffconfig.txt
+    exit 0;
 fi
 
 set -x
