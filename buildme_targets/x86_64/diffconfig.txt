@@ -13,6 +13,7 @@ CONFIG_BUSYBOX_CONFIG_MORE=y
 CONFIG_BUSYBOX_CONFIG_TELNET=y
 CONFIG_ETHTOOL_PRETTY_DUMP=y
 CONFIG_IMAGEOPT=y
+CONFIG_PACKAGE_ATH_DEBUG=y
 # CONFIG_PACKAGE_ath10k-firmware-qca988x is not set
 CONFIG_PACKAGE_ath10k-firmware-qca988x-ct=y
 # CONFIG_PACKAGE_ath10k-firmware-qca99x0 is not set
@@ -20,8 +21,8 @@ CONFIG_PACKAGE_ath10k-firmware-qca99x0-ct=y
 CONFIG_PACKAGE_hostapd-common-old=y
 CONFIG_PACKAGE_hostapd-utils=y
 CONFIG_PACKAGE_iperf=y
-CONFIG_PACKAGE_kmod-ath-ct=y
 # CONFIG_PACKAGE_kmod-ath10k is not set
+CONFIG_PACKAGE_kmod-ath10k-ct=y
 CONFIG_PACKAGE_kmod-hwmon-core=y
 CONFIG_PACKAGE_kmod-libphy=y
 CONFIG_PACKAGE_kmod-skge=y
