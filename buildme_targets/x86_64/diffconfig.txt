@@ -16,8 +16,10 @@ CONFIG_IMAGEOPT=y
 CONFIG_PACKAGE_ATH_DEBUG=y
 # CONFIG_PACKAGE_ath10k-firmware-qca988x is not set
 CONFIG_PACKAGE_ath10k-firmware-qca988x-ct=y
+CONFIG_PACKAGE_ath10k-firmware-qca9984-ct=y
 # CONFIG_PACKAGE_ath10k-firmware-qca99x0 is not set
 CONFIG_PACKAGE_ath10k-firmware-qca99x0-ct=y
+CONFIG_PACKAGE_ct-bugcheck=y
 CONFIG_PACKAGE_hostapd-common-old=y
 CONFIG_PACKAGE_hostapd-utils=y
 CONFIG_PACKAGE_iperf=y
