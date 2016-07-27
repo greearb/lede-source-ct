@@ -7,6 +7,19 @@ make menuconfig
 
 make V=s -j 8
 
+# Rebuild a single package
+make package/kernel/ath10k-ct/{clean,install} V=sc
+
+# Linksys EA8500
+cp bin/targets/ipq806x/generic/lede-ipq806x-EA8500-squashfs-factory.bin /var/lib/tftpboot/
+# Interrupt boot, then:
+setenv image lede-ipq806x-EA8500-squashfs-factory.bin
+setenv serverip 192.168.1.234
+run flashimg
+run flashimg2
+reset
+
+# Ventana
 cp bin/targets/imx6/generic/lede-imx6-ventana-squashfs-nand_normal.ubi /var/lib/tftpboot/
 
 # For APU2, copy image to USB so we can dd it on the apu2
