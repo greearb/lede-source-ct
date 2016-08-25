@@ -10,6 +10,7 @@ CONFIG_BUSYBOX_CONFIG_FEATURE_TELNET_TTYPE=y
 CONFIG_BUSYBOX_CONFIG_LSPCI=y
 CONFIG_BUSYBOX_CONFIG_LSUSB=y
 CONFIG_BUSYBOX_CONFIG_MORE=y
+# CONFIG_BUSYBOX_CONFIG_SHA256SUM is not set
 CONFIG_BUSYBOX_CONFIG_TELNET=y
 CONFIG_ETHTOOL_PRETTY_DUMP=y
 CONFIG_IMAGEOPT=y
@@ -20,9 +21,9 @@ CONFIG_PACKAGE_ath10k-firmware-qca9984-ct=y
 # CONFIG_PACKAGE_ath10k-firmware-qca99x0 is not set
 CONFIG_PACKAGE_ath10k-firmware-qca99x0-ct=y
 CONFIG_PACKAGE_ct-bugcheck=y
-CONFIG_PACKAGE_hostapd-common-old=y
 CONFIG_PACKAGE_hostapd-utils=y
 CONFIG_PACKAGE_iperf=y
+# CONFIG_PACKAGE_iwinfo is not set
 # CONFIG_PACKAGE_kmod-ath10k is not set
 CONFIG_PACKAGE_kmod-ath10k-ct=y
 CONFIG_PACKAGE_kmod-hwmon-core=y
@@ -30,9 +31,12 @@ CONFIG_PACKAGE_kmod-libphy=y
 CONFIG_PACKAGE_kmod-skge=y
 CONFIG_PACKAGE_kmod-sky2=y
 CONFIG_PACKAGE_kmod-tg3=y
+# CONFIG_PACKAGE_libbfd is not set
+# CONFIG_PACKAGE_libelf1 is not set
 CONFIG_PACKAGE_libiwinfo=y
 CONFIG_PACKAGE_libiwinfo-lua=y
 CONFIG_PACKAGE_liblua=y
+# CONFIG_PACKAGE_libopcodes is not set
 CONFIG_PACKAGE_libubus-lua=y
 CONFIG_PACKAGE_libuci-lua=y
 CONFIG_PACKAGE_lua=y
@@ -46,6 +50,8 @@ CONFIG_PACKAGE_luci-mod-admin-full=y
 CONFIG_PACKAGE_luci-proto-ipv6=y
 CONFIG_PACKAGE_luci-proto-ppp=y
 CONFIG_PACKAGE_luci-theme-bootstrap=y
+# CONFIG_PACKAGE_objdump is not set
+# CONFIG_PACKAGE_perf is not set
 CONFIG_PACKAGE_rpcd=y
 CONFIG_PACKAGE_uclibcxx=y
 CONFIG_PACKAGE_uhttpd=y
