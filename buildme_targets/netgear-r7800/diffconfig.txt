@@ -1,0 +1,38 @@
+CONFIG_TARGET_ipq806x=y
+CONFIG_TARGET_ipq806x_DEVICE_R7800=y
+CONFIG_TARGET_BOARD="ipq806x"
+CONFIG_ALL_NONSHARED=y
+CONFIG_BUSYBOX_CUSTOM=y
+CONFIG_BUSYBOX_CONFIG_BZIP2=y
+CONFIG_BUSYBOX_CONFIG_FEATURE_SEAMLESS_BZ2=y
+CONFIG_BUSYBOX_CONFIG_LSPCI=y
+# CONFIG_PACKAGE_ath10k-firmware-qca988x is not set
+# CONFIG_PACKAGE_ath10k-firmware-qca9984 is not set
+CONFIG_PACKAGE_ath10k-firmware-qca9984-ct=y
+CONFIG_PACKAGE_ct-bugcheck=y
+CONFIG_PACKAGE_ethtool=y
+CONFIG_PACKAGE_iperf3=y
+CONFIG_PACKAGE_iputils-ping=y
+# CONFIG_PACKAGE_kmod-ath10k is not set
+CONFIG_PACKAGE_kmod-ath10k-ct=y
+CONFIG_PACKAGE_libiwinfo-lua=y
+CONFIG_PACKAGE_liblua=y
+CONFIG_PACKAGE_libpcap=y
+CONFIG_PACKAGE_libubus-lua=y
+CONFIG_PACKAGE_libuci-lua=y
+CONFIG_PACKAGE_lua=y
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_luci-base=y
+CONFIG_PACKAGE_luci-lib-ip=y
+CONFIG_PACKAGE_luci-lib-jsonc=y
+CONFIG_PACKAGE_luci-lib-nixio=y
+CONFIG_PACKAGE_luci-mod-admin-full=y
+CONFIG_PACKAGE_luci-proto-ipv6=y
+CONFIG_PACKAGE_luci-proto-ppp=y
+CONFIG_PACKAGE_luci-theme-bootstrap=y
+CONFIG_PACKAGE_rpcd=y
+CONFIG_PACKAGE_tcpdump=y
+CONFIG_PACKAGE_uhttpd=y
+CONFIG_PACKAGE_uhttpd-mod-ubus=y
+CONFIG_PACKAGE_wpa-cli=y

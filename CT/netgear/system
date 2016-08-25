@@ -1,0 +1,51 @@
+
+config system
+	option hostname 'lede-r7800'
+	option timezone 'UTC'
+	option ttylogin '0'
+	option log_size '64'
+	option urandom_seed '0'
+
+config timeserver 'ntp'
+	option enabled '1'
+	option enable_server '0'
+	list server '0.lede.pool.ntp.org'
+	list server '1.lede.pool.ntp.org'
+	list server '2.lede.pool.ntp.org'
+	list server '3.lede.pool.ntp.org'
+
+config led 'led_usb1'
+	option name 'USB 1'
+	option sysfs 'r7800:white:usb1'
+	option trigger 'usbdev'
+	option interval '50'
+	option dev '1-1'
+
+config led 'led_usb2'
+	option name 'USB 2'
+	option sysfs 'r7800:white:usb3'
+	option trigger 'usbdev'
+	option interval '50'
+	option dev '3-1'
+
+config led 'led_wan'
+	option name 'WAN'
+	option sysfs 'r7800:white:wan'
+	option trigger 'netdev'
+	option mode 'link tx rx'
+	option dev 'eth0'
+
+config led 'led_esata'
+	option name 'eSATA'
+	option sysfs 'r7800:amber:esata'
+	option trigger 'ide-disk'
+
+config led 'led_wps'
+	option name 'WPS'
+	option sysfs 'r7800:white:wps'
+	option default '0'
+
+config led 'led_rfkill'
+	option name 'rfkill'
+	option sysfs 'r7800:white:rfkill'
+	option default '0'
