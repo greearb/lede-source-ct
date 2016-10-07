@@ -19,8 +19,21 @@ run flashimg
 run flashimg2
 reset
 
-# Ventana
-cp bin/targets/imx6/generic/lede-imx6-ventana-squashfs-nand_normal.ubi /var/lib/tftpboot/
+# Ventana (LEDE)
+cp bin/targets/imx6/generic/lede-imx6-ventana-squashfs-nand.ubi /var/lib/tftpboot/
+
+setenv ipaddr 192.168.1.1
+setenv serverip 192.168.1.234
+setenv image_rootfs lede-imx6-ventana-squashfs-nand.ubi
+
+# Save config
+saveenv
+
+# To actually flash the new image:
+
+run nand_update
+boot
+
 
 # For APU2, copy image to USB so we can dd it on the apu2
 cp bin/targets/x86/64/lede-x86-64-combined-squashfs.img /run/media/greearb/BBB1-652F/
