@@ -58,6 +58,7 @@ scp CT/netgear/network CT/netgear/wireless CT/netgear/system CT/bugcheck root@19
 scp 192.168.1.234:/home/greearb/git/qca-10-2-4-70/firmware-5-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-5.bin.ct
 # New 10.1 firmware
 scp 192.168.1.234:/home/greearb/git/qca/firmware-2-htt-mgt-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
+scp 192.168.1.234:/home/greearb/git/qca-15/firmware-2-htt-mgt-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
 scp 192.168.1.234:/home/greearb/git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
 scp 192.168.1.234:/home/greearb/git/qca/firmware-2-htt-mgt-nrcc.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
 
