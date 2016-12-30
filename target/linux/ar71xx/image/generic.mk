@@ -781,7 +781,7 @@ TARGET_DEVICES += gl-inet-6416A-v1
 
 define Device/jwap230
   DEVICE_TITLE := jjPlus JWAP230
-  DEVICE_PACKAGES := kmod-usb-core kmod-usb2
+  DEVICE_PACKAGES := kmod-usb-core kmod-usb2 kmod-ath10k-ct ath10k-firmware-qca988x-ct
   BOARDNAME := JWAP230
   IMAGE_SIZE := 16000k
   MTDPARTS := spi0.0:256k(u-boot)ro,64k(u-boot-env),16000k(firmware),64k(art)ro

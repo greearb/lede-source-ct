@@ -804,7 +804,15 @@ wpa_supplicant_add_network() {
 	cat >> "$_config" <<EOF
 network={
 	$scan_ssid
-	ssid="$ssid"
+EOF
+
+	if [[ ${ssid:0:2} == "\\x" ]]; then
+		echo "  ssid=`echo ${ssid//\\\x}`" >> $_config
+	else
+		echo "  ssid=\"$ssid\"" >> $_config
+	fi
+
+	cat >> "$_config" <<EOF
 	key_mgmt=$key_mgmt
 	$network_data
 }
