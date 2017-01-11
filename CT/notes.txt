@@ -168,3 +168,79 @@ boot
 #     wlan0 station as uplink.  AP system should have gateway configured.  ***
 # Click "Save & Apply"
 # Reboot the unit and ensure the new IP address information works as expected.
+
+
+# JWAP230 target notes
+
+# Compile
+
+./scripts/feeds update -a
+./scripts/feeds install batctl
+make v=S -j 8
+/bin/cp bin/targets/ar71xx/generic/lede-ar71xx-generic-jwap230-squashfs-sysupgrade.bin /var/lib/tftpboot
+
+# Install image on the board.
+setenv serverip 192.168.1.234
+setenv ipaddr 192.168.1.9
+tftp 0x80060000 lede-ar71xx-generic-jwap230-squashfs-sysupgrade.bin
+erase 0x9f050000 +$filesize
+cp.b $fileaddr 0x9f050000 $filesize
+setenv bootcmd "bootm 0x9f050000"
+saveenv && reset
+
+
+# Configuration for IBSS mode
+
+config wifi-device 'radio0'
+    option log_level '0'
+    option path 'pci0000:01/0000:01:00.0'
+    option disabled '0'
+    option type 'mac80211'
+#    option channel '132'  This fails, not sure why.
+    option channel '36'
+    option htmode 'VHT40'
+    option rxantenna '3'
+    option txantenna '3'
+    option txpower '19'
+    option hwmode 'a'
+    option country 'FR'
+    option country_ie '1'
+    option supported_rates '6000 9000 12000 18000 24000 36000 48000 54000'
+    option basic_rate '60 120 240'
+    option require_mode 'g'
+    option log_level '1'
+
+config wifi-iface 'PublicAP'
+    option device 'radio0'
+    option ifname 'ap0'
+    option macfilter '1'
+    option isolate '1'
+    option mode 'ap'
+    option wmm '1'
+    option encryption 'none'
+    option network 'lan'
+    option disassoc_low_ack '0'
+    option ssid 'Hotzone 1'
+    option hidden '0'
+    option disabled '0'
+
+config wifi-iface 'MeshAdhoc'
+    option device 'radio0'
+    option ssid 'TEST'
+    option ifname 'adhoc0'
+    option hidden '0'
+    option mode 'adhoc'
+    option encryption 'psk2'
+    option network 'none'
+    option key 'password'
+    option mcast_rate '6000'
+
+
+#  Disable DHCP
+/etc/init.d/odhcpd disable
+/etc/init.d/dnsmasq disable
+
+# iperf instructions, UDP
+
+client: iperf -u -c 10.1.1.2 -b 450m
+server: iperf -u -s
