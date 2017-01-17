@@ -30,7 +30,6 @@ setenv image_rootfs lede-imx6-ventana-squashfs-nand.ubi
 saveenv
 
 # To actually flash the new image:
-
 run nand_update
 boot
 
@@ -41,6 +40,9 @@ cp bin/targets/x86/64/lede-x86-64-combined-squashfs.img /run/media/greearb/BBB1-
 # On apu2 pc-engines booted system, with USB above inserted too
 # dd if=/media/usbhd-sdc1/lede-x86-64-combined-squashfs.img of=/dev/sda bs=4k
 
+# Netgear 7800 (9984)
+
+
 # Automatic login as root (from desktop machine):
 ssh root@192.168.1.1 "tee -a /etc/dropbear/authorized_keys" < ~/.ssh/id_rsa.pub
 
@@ -50,7 +52,7 @@ scp CT/apu2/network CT/apu2/wireless CT/apu2/system CT/bugcheck root@192.168.1.1
 # Install some scripts (linksys)
 scp CT/linksys/network CT/linksys/wireless CT/linksys/system CT/bugcheck root@192.168.1.1:/etc/config/
 
-# Install some scripts (netgear)
+# Install some scripts (netgear r7800 QCA 9984)
 scp CT/netgear/network CT/netgear/wireless CT/netgear/system CT/bugcheck root@192.168.1.1:/etc/config/
 
 # Run this on the LEDE systems to install CT firmware.
@@ -244,3 +246,16 @@ config wifi-iface 'MeshAdhoc'
 
 client: iperf -u -c 10.1.1.2 -b 450m
 server: iperf -u -s
+
+# network setup
+
+ifconfig adhoc0 10.1.1.1 netmask 255.255.255.0 up
+
+ifconfig adhoc0 10.1.1.2 netmask 255.255.255.0 up
+
+# Install new firmware:
+scp greearb@192.168.1.234:git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
+scp greearb@192.168.1.234:git/qca/firmware-2-full.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
+
+# Enable FW verbose debugging
+echo 0x9900000002 > /sys/kernel/debug/ieee80211/phy0/ath10k/ct_special
