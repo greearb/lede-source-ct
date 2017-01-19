@@ -530,8 +530,8 @@ mac80211_setup_supplicant_noctl() {
 
 mac80211_setup_adhoc_htmode() {
 	case "$htmode" in
-		VHT20|HT20) ibss_htmode=HT20;;
-		HT40*|VHT40|VHT160)
+		VHT20|HT20|VHT40|VHT160) ibss_htmode="$htmode";;
+		HT40*)
 			case "$hwmode" in
 				a)
 					case "$(( ($channel / 4) % 2 ))" in
