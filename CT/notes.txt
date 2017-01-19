@@ -185,6 +185,7 @@ make v=S -j 8
 setenv serverip 192.168.1.234
 setenv ipaddr 192.168.1.9
 tftp 0x80060000 lede-ar71xx-generic-jwap230-squashfs-sysupgrade.bin
+# tftp 0x80060000 openwrt-ar71xx-generic-jwap230-squashfs-sysupgrade.bin
 erase 0x9f050000 +$filesize
 cp.b $fileaddr 0x9f050000 $filesize
 setenv bootcmd "bootm 0x9f050000"
@@ -229,6 +230,7 @@ config wifi-iface 'PublicAP'
 config wifi-iface 'MeshAdhoc'
     option device 'radio0'
     option ssid 'TEST'
+    option bssid 'ba:f2:be:e9:36:ab'
     option ifname 'adhoc0'
     option hidden '0'
     option mode 'adhoc'
@@ -254,8 +256,23 @@ ifconfig adhoc0 10.1.1.1 netmask 255.255.255.0 up
 ifconfig adhoc0 10.1.1.2 netmask 255.255.255.0 up
 
 # Install new firmware:
+scp greearb@192.168.100.149:git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
 scp greearb@192.168.1.234:git/qca/firmware-2-full-community.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
 scp greearb@192.168.1.234:git/qca/firmware-2-full.bin /lib/firmware/ath10k/QCA988X/hw2.0/firmware-2.bin
 
 # Enable FW verbose debugging
 echo 0x9900000002 > /sys/kernel/debug/ieee80211/phy0/ath10k/ct_special
+
+# Copy new driver src into location
+/bin/cp ~/git/linux-4.7.dev.y/drivers/net/wireless/ath/ath10k/*.[ch] build_dir/target-mips_74kc_uClibc-0.9.33.2/linux-ar71xx_generic/ath10k-ct-2017-01-18/ath10k/
+make -j1 V=s
+
+# Copy new driver from build folder...
+cp build_dir/target-mips_74kc_uClibc-0.9.33.2/linux-ar71xx_generic/ath10k-ct-2017-01-18/ipkg-ar71xx/kmod-ath10k-ct/lib/modules/3.18.45/*.ko ~
+
+# Download new driver on openwrt
+scp greearb@192.168.100.149:ath10k_pci.ko /lib/modules/3.18.45/
+scp greearb@192.168.100.149:ath10k_core.ko /lib/modules/3.18.45/
+
+# Enable verbose MAC logging
+echo 0x20000010 > /sys/kernel/debug/ieee80211/phy0/ath10k/debug_level
