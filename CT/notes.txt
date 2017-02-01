@@ -319,3 +319,18 @@ scp greearb@192.168.100.149:ath10k_core.ko /lib/modules/3.18.45/
 
 # Enable verbose MAC logging
 echo 0x20000010 > /sys/kernel/debug/ieee80211/phy0/ath10k/debug_level
+
+
+
+
+
+
+
+
+
+
+
+
+#  Dev notes
+For firmware repo, increment PKG_RELEASE and do not change PKG_SOURCE_DATE
+For ath10k-ct driver, set PKG_SOURCE_DATE to be date of upstream (ath10k-ct repo) commit.
