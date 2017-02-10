@@ -192,7 +192,7 @@ setenv bootcmd "bootm 0x9f050000"
 saveenv && reset
 
 
-# Configuration for IBSS mode
+# /etc/config/network Configuration for IBSS mode
 
 config wifi-device 'radio0'
     option log_level '0'
@@ -240,7 +240,7 @@ config wifi-iface 'MeshAdhoc'
     option key 'password'
     option mcast_rate '6000'
 
-# mesh network config
+# /etc/config/network   mesh network config
 
 
 config interface 'loopback'
