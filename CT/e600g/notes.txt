@@ -2,6 +2,8 @@ e600G notes (baolin)
 
 Use .config in this dir, apply patch in this dir.
 
+./scripts/feeds install -d y batctl
+
 make -j8
 
 Image is at:  bin/targets/ar71xx/generic/lede-ar71xx-generic-e600g-v1-8M-squashfs-sysupgrade.bin
@@ -9,3 +11,99 @@ Load it through web browser or ssh (sysupgrade)
 
 If the NIC is not found, make sure it is in slot correctly, NIC is slightly mal-formed and has to be
 forced one way or another.
+
+/etc/config/network:
+
+config interface 'loopback'
+	option ifname 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fde1:2343:04a2::/48'
+
+config interface 'lan'
+	option type 'bridge'
+	option ifname 'eth0 bat0'
+	option proto 'static'
+	option ipaddr '192.168.1.35'
+	option netmask '255.255.255.0'
+	option ip6assign '60'
+
+config interface 'wan'
+	option ifname 'eth1'
+	option proto 'dhcp'
+
+config interface 'wan6'
+	option ifname 'eth1'
+	option proto 'dhcpv6'
+
+config switch
+	option name 'switch0'
+	option reset '1'
+	option enable_vlan '1'
+
+config interface 'batnet'
+       option mtu 1532
+       option proto batadv
+       option mesh 'bat0'
+
+
+/etc/config/wireless
+
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option channel '36'
+	option hwmode '11a'
+	option path 'pci0000:00/0000:00:00.0'
+	option htmode 'VHT80'
+	option disabled '0'
+
+config wifi-iface 'default_radio0'
+	option device 'radio0'
+	option network 'batnet'
+	option mode 'adhoc'
+        option bssid '66:61:00:12:34:56'
+	option ssid 'LEDE'
+	option encryption 'none'
+
+config wifi-device 'radio1'
+	option type 'mac80211'
+	option channel '11'
+	option hwmode '11g'
+	option path 'platform/qca953x_wmac'
+	option htmode 'HT20'
+	option disabled '1'
+
+config wifi-iface 'default_radio1'
+	option device 'radio1'
+	option network 'lan'
+	option mode 'ap'
+	option ssid 'LEDE'
+	option encryption 'none'
+
+
+
+/etc/config/batman-adv (default values):
+
+config 'mesh' 'bat0'
+	option 'aggregated_ogms'
+	option 'ap_isolation'
+	option 'bonding'
+	option 'fragmentation'
+	option 'gw_bandwidth'
+	option 'gw_mode'
+	option 'gw_sel_class'
+	option 'log_level'
+	option 'orig_interval'
+	option 'bridge_loop_avoidance'
+	option 'distributed_arp_table'
+	option 'multicast_mode'
+	option 'network_coding'
+	option 'hop_penalty'
+	option 'isolation_mark'
+
+# yet another batX instance
+# config 'mesh' 'bat5'
+#	option 'interfaces' 'second_mesh'
