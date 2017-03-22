@@ -9,6 +9,12 @@ make -j8
 Image is at:  bin/targets/ar71xx/generic/lede-ar71xx-generic-e600g-v1-8M-squashfs-sysupgrade.bin
 Load it through web browser or ssh (sysupgrade)
 
+cp  bin/targets/ar71xx/generic/lede-ar71xx-generic-e600g-v1-8M-squashfs-sysupgrade.bin ~/
+
+on e600g:
+scp greearb@192.168.1.234:lede-ar71xx-generic-e600g-v1-8M-squashfs-sysupgrade.bin /tmp/
+sysupgrade /tmp/lede-ar71xx-generic-e600g-v1-8M-squashfs-sysupgrade.bin
+
 If the NIC is not found, make sure it is in slot correctly, NIC is slightly mal-formed and has to be
 forced one way or another.
 
