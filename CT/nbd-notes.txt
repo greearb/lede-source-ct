@@ -1,0 +1,26 @@
+ath10k-ct: Disable AHB support.
+  Fix PKG_VERSION
+  Put CT_MAKEDEFS after $(MAKE)
+
+  ATH10K_DEBUG needs to be set based on CONFIG_PACKAGE_ATH_DEBUG
+  not CONFIG_PACKAGE_MAC80211_DEBUGFS
+
+  and you should rename the package to ath10k-ct
+
+<greearb_> Can you suggest a better value for PKG_VERSION?
+<nbd> the date of the commit that you're referencing
+<greearb_> ok.  Should I change it each time I do a new commit?
+<nbd> every time you update the package, yes
+<greearb_> ok, sounds good.
+
+> +PKG_SOURCE_DATE:=2017-01-20
+> +PKG_SOURCE_VERSION:=9fc6c4f4b97c934a66043d1b7c8f8cbc415bd538
+>  PKG_MIRROR_HASH:=845950a177ed6dd7ad3f645df79403e9980f089a09b66e74a9b88abe58dfe5e6
+You forgot to update PKG_MIRROR_HASH - you can automate this using make
+package/ath10k-ct/check FIXUP=1
+
+
+> +PKG_SOURCE_DATE:=2017-01-26
+Please stop bumping PKG_SOURCE_DATE for no reason. It should reflect the
+date of the commit you're referencing in PKG_SOURCE_VERSION, not the
+date you made the change.
