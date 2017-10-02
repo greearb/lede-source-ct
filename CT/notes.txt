@@ -35,6 +35,7 @@ boot
 
 
 # For APU2, copy image to USB so we can dd it on the apu2
+gunzip bin/targets/x86/64/lede-x86-64-combined-squashfs.img.gz
 cp bin/targets/x86/64/lede-x86-64-combined-squashfs.img /run/media/greearb/BBB1-652F/
 
 # On apu2 pc-engines booted system, with USB above inserted too
