@@ -1,0 +1,32 @@
+From f1f0375f67622c4f5c2faeb03c0275e4f7e8191a Mon Sep 17 00:00:00 2001
+From: Ben Greear <greearb@candelatech.com>
+Date: Tue, 10 Oct 2017 13:56:29 -0700
+Subject: [PATCH] mac80211:  Revert some of e8e4f5, fixes setting single rate
+ in ath10k.
+
+This lets us successfully set a single rate in ath10k again.
+
+Signed-off-by: Ben Greear <greearb@candelatech.com>
+---
+ net/mac80211/cfg.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index d4c2511..087d33a 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -2756,8 +2756,10 @@ static int ieee80211_set_bitrate_mask(struct wiphy *wiphy,
+		u32 basic_rates = sdata->vif.bss_conf.basic_rates;
+		enum nl80211_band band = sdata->vif.bss_conf.chandef.chan->band;
+
+-		if (!(mask->control[band].legacy & basic_rates))
+-			return -EINVAL;
++		if (!(mask->control[band].legacy & basic_rates)) {
++			pr_err("%s:  WARNING: no legacy rates for band[%d] in set-bitrate-mask.\n",
++			       sdata->dev->name, band);
++		}
+	}
+
+	for (i = 0; i < NUM_NL80211_BANDS; i++) {
+--
+2.4.11
