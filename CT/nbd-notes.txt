@@ -24,3 +24,13 @@ package/ath10k-ct/check FIXUP=1
 Please stop bumping PKG_SOURCE_DATE for no reason. It should reflect the
 date of the commit you're referencing in PKG_SOURCE_VERSION, not the
 date you made the change.
+
+
+<greearb_> if the files are exactly alike, how can it be fragile?
+<nbd> it doesn't have to be ui bloat
+<nbd> you can select the board file package and mark the package HIDDEN=1
+<nbd> it won't show up in menuconfig that way
+<nbd> it'll be enabled when needed
+<nbd> and opkg dependencies work as well
+<nbd> much cleaner than duplication
+<greearb_> hmm, ok, maybe that would work.  Next time I am hacking on the ath10k fw makefile I'll try that
